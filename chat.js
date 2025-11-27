@@ -5,65 +5,29 @@ const chatMessages = document.getElementById('chat-container');
 const userInput = document.getElementById('user-input');
 const sendButton = document.getElementById('send-btn');
 
-// function speakText(text) {
-//     try {
-//         const utter = new SpeechSynthesisUtterance(text);
-//         utter.rate = 1.0;
-//         utter.pitch = 1.0;
-//         speechSynthesis.speak(utter);
-//     } catch (e) {}
-// }
+// Keep for future
+// function speakText(text) { }
 
 function addMessage(text, isUser = false, sources = null, isError = false) {
-    const msg = document.createElement('div');
-    msg.className = `message ${isUser ? 'user' : 'bot'}`;
+    const msg = document.createElement("div");
+    msg.className = `message ${isUser ? "user" : "bot"}`;
 
-    const content = document.createElement('div');
-    content.className = 'message-content';
-    if (isError) content.style.color = 'red';
+    const content = document.createElement("div");
+    content.innerHTML = text.replace(/\n/g, "<br>");
 
-    const textElem = document.createElement('p');
-    textElem.innerHTML = text.replace(/\n/g, '<br>');
-    content.appendChild(textElem);
-
-    if (sources && sources.length > 0) {
-        const srcDiv = document.createElement('div');
-        srcDiv.className = 'sources';
-        srcDiv.innerHTML = "<b>📌 Sources:</b><br>";
-        sources.forEach(url => {
-            const link = document.createElement('a');
-            link.href = url;
-            link.textContent = url;
-            link.target = "_blank";
-            srcDiv.appendChild(link);
-            srcDiv.appendChild(document.createElement('br'));
+    if (sources) {
+        sources.forEach(s => {
+            content.innerHTML += `<br><br><a href="${s}" target="_blank">📌 ${s}</a>`;
         });
-        content.appendChild(srcDiv);
     }
 
     msg.appendChild(content);
     chatMessages.appendChild(msg);
-
-    // if (!isUser && !isError) speakText(text);
-
-    chatMessages.scrollTo({ top: chatMessages.scrollHeight, behavior: 'smooth' });
-}
-
-function showTyping() {
-    const typing = document.createElement('div');
-    typing.className = 'message bot';
-    typing.id = 'typing-indicator';
-    typing.innerHTML = "<div class='typing-dots'><div></div><div></div><div></div></div>";
-    chatMessages.appendChild(typing);
-}
-
-function removeTyping() {
-    const typing = document.getElementById('typing-indicator');
-    if (typing) typing.remove();
+    chatMessages.scrollTop = chatMessages.scrollHeight;
 }
 
 async function sendQuery(question) {
-    const response = await fetch(`${API_URL}/api/ask`, {
+    const res = await fetch(`${API_URL}/api/ask`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
@@ -72,44 +36,28 @@ async function sendQuery(question) {
         body: JSON.stringify({ question })
     });
 
-    if (!response.ok) {
-        const err = await response.json().catch(() => ({}));
-        throw new Error(err.detail || "Server error");
-    }
-
-    return await response.json();
+    if (!res.ok) throw new Error("Server Error");
+    return await res.json();
 }
 
 async function handleSend() {
-    const question = userInput.value.trim();
-    if (!question) return;
+    const q = userInput.value.trim();
+    if (!q) return;
 
-    addMessage(question, true);
-
+    addMessage(q, true);
     userInput.value = "";
-    userInput.disabled = true;
-    sendButton.disabled = true;
-
-    showTyping();
 
     try {
-        const data = await sendQuery(question);
-        removeTyping();
+        const data = await sendQuery(q);
         addMessage(data.answer, false, data.sources);
     } catch (e) {
-        removeTyping();
-        addMessage("⚠️ Error: " + e.message, false, null, true);
+        addMessage("⚠️ " + e.message, false, null, true);
     }
-
-    userInput.disabled = false;
-    sendButton.disabled = false;
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    sendButton.addEventListener("click", handleSend);
-    userInput.addEventListener("keydown", e => {
-        if (e.key === "Enter") handleSend();
-    });
+sendButton.onclick = handleSend;
+userInput.onkeydown = (e) => {
+    if (e.key === "Enter") handleSend();
+};
 
-    addMessage("🐝 Hi! I'm ScriptBees Assistant. Ask me anything!", false);
-});
+addMessage("🐝 Hi! I'm ScriptBees Assistant.", false);
