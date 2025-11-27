@@ -1,117 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>ScriptBees</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <style>
-        body {
-            font-family: "Segoe UI", sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #f7fff9;
-        }
-
-        header {
-            background: #0c8a4a;
-            color: white;
-            padding: 26px;
-            font-size: 28px;
-            font-weight: bold;
-            text-align: center;
-        }
-
-        .content {
-            padding: 40px;
-            text-align: center;
-        }
-
-        h1 {
-            color: #0c8a4a;
-            font-size: 40px;
-            margin-bottom: 10px;
-        }
-
-        p {
-            font-size: 20px;
-            color: #333;
-            line-height: 1.5;
-            max-width: 700px;
-            margin: auto;
-        }
-
-        /* CHAT BUTTON */
-        #bot-toggle {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 65px;
-            height: 65px;
-            border-radius: 50%;
-            background: #0c8a4a;
-            color: white;
-            font-size: 30px;
-            border: none;
-            cursor: pointer;
-            z-index: 99999;
-            box-shadow: 0px 5px 14px rgba(0, 0, 0, 0.25);
-            transition: 0.2s;
-        }
-
-        #bot-toggle:hover {
-            transform: scale(1.1);
-        }
-
-        /* CHAT WINDOW */
-        #bot-window {
-            position: fixed;
-            bottom: 100px;
-            right: 20px;
-            width: 400px;
-            height: 600px;
-            background: white;
-            border-radius: 14px;
-            overflow: hidden;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.25);
-            display: none;
-            z-index: 999999;
-        }
-    </style>
+    <title>ScriptBees Assistant</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body>
+<body style="margin:0;padding:0;">
 
-<header>🐝 ScriptBees</header>
+<!-- FIXED FINAL WORKING URL -->
+<iframe 
+  src="${frontendUrl}/embed.html"
+  style="border:none;width:100%;height:100%;"
+></iframe>
 
-<div class="content">
-    <h1>Welcome to ScriptBees</h1>
-    <p>AI · Automation · Data Engineering · Intelligent Systems</p>
+
+<div id="welcome-popup" style="
+   position:fixed;
+   bottom:90px;
+   right:20px;
+   background:#0c8a4a; 
+   color:white;
+   padding:15px 20px;
+   border-radius:10px;
+   font-size:15px;
+   box-shadow:0 0 10px rgba(0,0,0,0.3);
+   display:none;
+">
+   👋 Hi! I'm your ScriptBees Assistant. Ask me anything!
 </div>
-
-<!-- FIXED CHAT WINDOW -->
-<div id="bot-window">
-    <iframe 
-        src="https://frontend-chatbot-5z4zt4itt-chintha-sowmyas-projects.vercel.app/index.html"
-        style="width:100%;height:100%;border:none;"
-    ></iframe>
-</div>
-
-<!-- CHAT BUTTON -->
-<button id="bot-toggle">💬</button>
 
 <script>
-    const toggle = document.getElementById("bot-toggle");
-    const box = document.getElementById("bot-window");
-
-    let open = false;
-
-    toggle.onclick = () => {
-        open = !open;
-        box.style.display = open ? "block" : "none";
-        toggle.textContent = open ? "✖" : "💬";
-    };
+window.onload = function() {
+   const popup = document.getElementById("welcome-popup");
+   popup.style.display = "block";
+   setTimeout(() => popup.style.display = "none", 5000);
+};
 </script>
 
 </body>
