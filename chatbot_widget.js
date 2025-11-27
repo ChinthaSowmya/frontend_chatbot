@@ -1,6 +1,6 @@
 (function () {
     const backendUrl = "https://backend-chatbot-32sc.onrender.com"; // your backend
-    const frontendUrl = "frontend-chatbot-2oz0wrsp4-chintha-sowmyas-projects.vercel.app";   // your frontend
+    const frontendUrl = "frontend-chatbot-lac.vercel.app";   // your frontend
 
     // --------------------------
     // Create Floating Button
