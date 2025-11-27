@@ -1,10 +1,7 @@
 (function () {
-    const backendUrl = "https://backend-chatbot-32sc.onrender.com"; // your backend
-    const frontendUrl = "frontend-chatbot-lac.vercel.app";   // your frontend
+    const frontendUrl = "https://frontend-chatbot-5z4zt4itt-chintha-sowmyas-projects.vercel.app";
 
-    // --------------------------
-    // Create Floating Button
-    // --------------------------
+    // BUTTON
     const btn = document.createElement("div");
     btn.id = "sb-chatbot-btn";
     btn.innerHTML = "💬";
@@ -14,7 +11,7 @@
         right: 20px;
         width: 65px;
         height: 65px;
-        background: #00a878;
+        background: #0c8a4a;
         color: white;
         border-radius: 50%;
         display: flex;
@@ -24,13 +21,10 @@
         cursor: pointer;
         z-index: 999999;
         box-shadow: 0 6px 18px rgba(0,0,0,0.25);
-        transition: 0.2s;
     `;
     document.body.appendChild(btn);
 
-    // --------------------------
-    // Create Chat Window
-    // --------------------------
+    // WINDOW
     const win = document.createElement("div");
     win.id = "sb-chatbot-window";
     win.style.cssText = `
@@ -48,19 +42,17 @@
     `;
     win.innerHTML = `
         <iframe 
-            src="${frontendUrl}/embed.html" 
-            style="border:none;width:100%;height:100%;"
-        ></iframe>
+            src="${frontendUrl}/index.html"
+            style="border:none;width:100%;height:100%;">
+        </iframe>
     `;
     document.body.appendChild(win);
 
-    // --------------------------
-    // Toggle Behavior
-    // --------------------------
     let open = false;
-    btn.addEventListener("click", () => {
+
+    btn.onclick = () => {
         open = !open;
         win.style.display = open ? "block" : "none";
-        btn.innerHTML = open ? "✕" : "💬";
-    });
+        btn.innerHTML = open ? "✖" : "💬";
+    };
 })();
