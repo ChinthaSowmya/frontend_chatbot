@@ -1,49 +1,66 @@
 (function () {
-  const widget = document.createElement("div");
-  widget.id = "scriptbees-chatbot";
-  widget.style.position = "fixed";
-  widget.style.bottom = "20px";
-  widget.style.right = "20px";
-  widget.style.width = "400px";
-  widget.style.height = "600px";
-  widget.style.maxWidth = "95vw";
-  widget.style.maxHeight = "80vh";
-  widget.style.borderRadius = "14px";
-  widget.style.boxShadow = "0px 4px 18px rgba(0,0,0,0.25)";
-  widget.style.overflow = "hidden";
-  widget.style.display = "none";
-  widget.style.zIndex = "9999";
+    const backendUrl = "https://backend-chatbot-32sc.onrender.com"; // your backend
+    const frontendUrl = "frontend-chatbot-2oz0wrsp4-chintha-sowmyas-projects.vercel.app";   // your frontend
 
-  widget.innerHTML = `
-      <iframe src="https://frontend-chatbot-git-main-chintha-sowmyas-projects.vercel.app" 
-              style="width:100%;height:100%;border:none;border-radius:14px;">
-      </iframe>
-  `;
+    // --------------------------
+    // Create Floating Button
+    // --------------------------
+    const btn = document.createElement("div");
+    btn.id = "sb-chatbot-btn";
+    btn.innerHTML = "💬";
+    btn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 65px;
+        height: 65px;
+        background: #00a878;
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 28px;
+        cursor: pointer;
+        z-index: 999999;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+        transition: 0.2s;
+    `;
+    document.body.appendChild(btn);
 
-  const toggle = document.createElement("button");
-  toggle.id = "chat-toggle";
-  toggle.innerHTML = "🐝";
-  toggle.style.position = "fixed";
-  toggle.style.bottom = "20px";
-  toggle.style.right = "20px";
-  toggle.style.width = "60px";
-  toggle.style.height = "60px";
-  toggle.style.borderRadius = "50%";
-  toggle.style.border = "none";
-  toggle.style.background = "#009688";
-  toggle.style.color = "#fff";
-  toggle.style.fontSize = "28px";
-  toggle.style.boxShadow = "0px 4px 14px rgba(0,0,0,0.3)";
-  toggle.style.cursor = "pointer";
-  toggle.style.zIndex = "10000";
+    // --------------------------
+    // Create Chat Window
+    // --------------------------
+    const win = document.createElement("div");
+    win.id = "sb-chatbot-window";
+    win.style.cssText = `
+        position: fixed;
+        bottom: 100px;
+        right: 20px;
+        width: 400px;
+        height: 550px;
+        background: white;
+        border-radius: 16px;
+        overflow: hidden;
+        display: none;
+        z-index: 999999;
+        box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+    `;
+    win.innerHTML = `
+        <iframe 
+            src="${frontendUrl}/embed.html" 
+            style="border:none;width:100%;height:100%;"
+        ></iframe>
+    `;
+    document.body.appendChild(win);
 
-  let open = false;
-  toggle.onclick = () => {
-    open = !open;
-    widget.style.display = open ? "block" : "none";
-    toggle.innerHTML = open ? "✕" : "🐝";
-  };
-
-  document.body.appendChild(widget);
-  document.body.appendChild(toggle);
+    // --------------------------
+    // Toggle Behavior
+    // --------------------------
+    let open = false;
+    btn.addEventListener("click", () => {
+        open = !open;
+        win.style.display = open ? "block" : "none";
+        btn.innerHTML = open ? "✕" : "💬";
+    });
 })();
