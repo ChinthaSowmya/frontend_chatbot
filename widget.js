@@ -1,9 +1,7 @@
 (function () {
+    const frontendUrl = "https://frontend-chatbot-5z4zt4itt-chintha-sowmyas-projects.vercel.app";
 
-    // IMPORTANT — USE CORRECT URLs
-    const FRONTEND_URL = "https://frontend-chatbot-5z4zt4itt-chintha-sowmyas-projects.vercel.app";
-
-    // Floating Button
+    // Floating button
     const btn = document.createElement("div");
     btn.id = "sb-chatbot-btn";
     btn.innerHTML = "💬";
@@ -13,21 +11,19 @@
         right: 20px;
         width: 65px;
         height: 65px;
-        border-radius: 50%;
         background: #0c8a4a;
         color: white;
-        font-size: 28px;
+        border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;
+        font-size: 28px;
         cursor: pointer;
         z-index: 999999;
-        box-shadow: 0 4px 14px rgba(0,0,0,0.3);
-        transition: 0.2s;
     `;
     document.body.appendChild(btn);
 
-    // Chat Window
+    // Chat window
     const win = document.createElement("div");
     win.id = "sb-chatbot-window";
     win.style.cssText = `
@@ -35,28 +31,24 @@
         bottom: 100px;
         right: 20px;
         width: 400px;
-        height: 600px;
-        border-radius: 16px;
+        height: 550px;
         background: white;
-        display: none;
+        border-radius: 16px;
         overflow: hidden;
+        display: none;
         z-index: 999999;
-        box-shadow: 0px 4px 20px rgba(0,0,0,0.25);
+        box-shadow: 0 6px 28px rgba(0,0,0,0.35);
     `;
     win.innerHTML = `
-        <iframe 
-            src="${FRONTEND_URL}/embed.html"
-            style="border:none;width:100%;height:100%;">
-        </iframe>
+        <iframe src="${frontendUrl}/embed.html" style="border:none;width:100%;height:100%"></iframe>
     `;
     document.body.appendChild(win);
 
-    // Button toggle
+    // Toggle
     let open = false;
-    btn.addEventListener("click", () => {
+    btn.onclick = () => {
         open = !open;
         win.style.display = open ? "block" : "none";
         btn.innerHTML = open ? "✕" : "💬";
-    });
-
+    };
 })();
