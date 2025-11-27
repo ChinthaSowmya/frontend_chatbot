@@ -1,15 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>ScriptBees Assistant</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 16 16%22><text y=%2214%22 font-size=%2214%22>🐝</text></svg>">
+
     <style>
+        :root {
+            --sb-green: #7BC043;     /* Main ScriptBees green */
+            --sb-green-dark: #6DB33F;
+            --sb-bg: #F5FFF3;
+            --sb-bot: #E9F8E3;
+            --sb-user: #DDF0FF;
+        }
+
         body {
             margin: 0;
-            background: #f4fff6;
-            font-family: "Poppins", sans-serif;
+            background: var(--sb-bg);
+            font-family: "Segoe UI", sans-serif;
             display: flex;
             flex-direction: column;
             height: 100vh;
@@ -17,116 +28,94 @@
 
         /* HEADER */
         .header {
-            background: linear-gradient(90deg, #4fee1e, #54fa17);
+            background: var(--sb-green);
+            padding: 16px;
             color: white;
-            padding: 18px;
             font-size: 24px;
-            font-weight: 700;
+            font-weight: bold;
             display: flex;
             align-items: center;
-            gap: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            gap: 10px;
         }
 
-        .header-logo {
-            font-size: 32px;
-        }
-
-        /* CHAT CONTAINER */
+        /* CHAT AREA */
         #chat-container {
             flex: 1;
             padding: 20px;
             overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
         }
 
-        /* BOT MESSAGE */
-        .message.bot {
-            background: #4fee1e;
-            border-left: 5px solid #0BA360;
-            max-width: 70%;
-            padding: 14px 18px;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            animation: fadeIn .3s ease;
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            margin: 10px 0;
+            border-radius: 16px;
+            line-height: 1.5;
+            animation: fadeIn 0.3s ease;
         }
 
-        /* USER MESSAGE */
-        .message.user {
-        
-            background: #F0FFF8;                /* Soft light green/white */
-            border-right: 5px solid #3CE6A3;    /* Secondary ScriptBees green */
-            max-width: 70%;
+        .bot {
+            background: var(--sb-bot);
+            border-left: 4px solid var(--sb-green);
+        }
+
+        .user {
+            background: var(--sb-user);
+            border-right: 4px solid var(--sb-green-dark);
             align-self: flex-end;
-            padding: 14px 18px;
-            border-radius: 14px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-            animation: fadeIn .3s ease;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(6px); }
+            from { opacity: 0; transform: translateY(4px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* INPUT AREA */
         #input-area {
+            padding: 12px;
             background: white;
-            padding: 14px;
             display: flex;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.06);
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
         }
 
         #user-input {
             flex: 1;
-            font-size: 16px;
-            border: 2px solid #d7f7e1;
             padding: 12px;
             border-radius: 12px;
+            border: 2px solid #ccc;
+            font-size: 16px;
             outline: none;
         }
 
-        #user-input:focus {
-            border-color: #34d399;
-            box-shadow: 0 0 0 2px #b1f5d5;
-        }
-
         #send-btn {
-            background: #0BA360;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 12px;
-            border: none;
-            font-size: 16px;
-            font-weight: 600;
             margin-left: 10px;
+            padding: 12px 20px;
+            background: var(--sb-green);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: bold;
             cursor: pointer;
-            transition: .2s;
         }
 
         #send-btn:hover {
-            background: #098a52;
-
+            background: var(--sb-green-dark);
         }
     </style>
-
 </head>
+
 <body>
 
-    <div class="header">
-        <span class="header-logo">🐝</span>
-        ScriptBees Assistant
-    </div>
+<div class="header">🐝 ScriptBees Assistant</div>
 
-    <div id="chat-container"></div>
+<div id="chat-container"></div>
 
-    <div id="input-area">
-        <input type="text" id="user-input" placeholder="Ask something about ScriptBees…">
-        <button id="send-btn">Send</button>
-    </div>
+<div id="input-area">
+    <input id="user-input" type="text" placeholder="Ask something about ScriptBees…" />
+    <button id="send-btn">Send</button>
+</div>
 
-    <script src="chat.js"></script>
+<script src="chat.js"></script>
+
 </body>
 </html>
