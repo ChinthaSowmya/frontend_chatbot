@@ -1,4 +1,4 @@
-// const API_URL = "https://backend-chatbot-32sc.onrender.com";
+// const API_URL = "https://backend-chatbot-1-e8bk.onrender.com";
 // let API_KEY = "X2Cli1ZSPhHHAHlfZkOEPRWIqtd1TQD9ErH705-HMc4";
 
 // const chatMessages = document.getElementById('chat-container');
