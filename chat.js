@@ -78,6 +78,23 @@ function speakText(text) {
     synth.speak(utter);
 }
 */
+const API_URL = "https://backend-chatbot-1-e8bk.onrender.com";
+let API_KEY = "X2Cli1ZSPhHHAHlfZkOEPRWIqtd1TQD9ErH705-HMc4";
+
+const chatMessages = document.getElementById("chat-container");
+const userInput = document.getElementById("user-input");
+const sendButton = document.getElementById("send-btn");
+
+/*
+// 🔊 TEXT-TO-SPEECH (Disabled — uncomment to enable)
+function speakText(text) {
+    const synth = window.speechSynthesis;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 1;
+    utter.pitch = 1;
+    synth.speak(utter);
+}
+*/
 
 function addMessage(text, isUser = false, sources = null) {
     const msg = document.createElement("div");
@@ -94,11 +111,8 @@ function addMessage(text, isUser = false, sources = null) {
     chatMessages.appendChild(msg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
 
-    /* 
-    // 🔊 Uncomment to enable bot voice
-    if (!isUser) {
-        speakText(text);
-    }
+    /*
+    if (!isUser) speakText(text);
     */
 }
 
@@ -137,6 +151,14 @@ userInput.onkeydown = (e) => {
     if (e.key === "Enter") handleSend();
 };
 
-addMessage("🐝 Hi! I'm ScriptBees Assistant. How can I help you today?", false);
-
-  
+/* ------------------------------------
+   ScriptBees Premium Welcome Message
+-------------------------------------*/
+addMessage(`
+    🐝 <b>Welcome to ScriptBees Intelligent Assistant!</b><br><br>
+    <span style="font-size:16px; line-height:1.6;">
+    Your trusted companion for everything ScriptBees — Cloud Consulting, Automation, 
+    AI, DevOps, Data Engineering, and Enterprise Solutions.<br><br>
+    Ask me anything! I’m here 24/7 to help you with real ScriptBees insights and guidance. 🚀
+    </span>
+`, false);
