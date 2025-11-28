@@ -1,5 +1,5 @@
 (function () {
-    const frontendUrl = "https://frontend-chatbot-5z4zt4itt-chintha-sowmyas-projects.vercel.app";
+    const frontendUrl = "https://rainbow-buttercream-866421.netlify.app/";
 
     // Floating button
     const btn = document.createElement("div");
