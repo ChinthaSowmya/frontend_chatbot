@@ -61,29 +61,45 @@
 // };
 
 // addMessage("🐝 Hi! I'm ScriptBees Assistant.", false);
-const API_URL = "https://backend-chatbot-32sc.onrender.com";
+const API_URL = "https://backend-chatbot-1-e8bk.onrender.com";
 let API_KEY = "X2Cli1ZSPhHHAHlfZkOEPRWIqtd1TQD9ErH705-HMc4";
 
 const chatMessages = document.getElementById("chat-container");
 const userInput = document.getElementById("user-input");
 const sendButton = document.getElementById("send-btn");
 
-function addMessage(text, isUser = false, sources = null, isError = false) {
+/* 
+// 🔊 TEXT-TO-SPEECH (Disabled — uncomment to enable)
+function speakText(text) {
+    const synth = window.speechSynthesis;
+    const utter = new SpeechSynthesisUtterance(text);
+    utter.rate = 1;
+    utter.pitch = 1;
+    synth.speak(utter);
+}
+*/
+
+function addMessage(text, isUser = false, sources = null) {
     const msg = document.createElement("div");
     msg.className = `message ${isUser ? "user" : "bot"}`;
 
     let html = text.replace(/\n/g, "<br>");
 
     if (sources?.length) {
-        html += "<br><br><b>📌 Sources:</b><br>" + sources.map(s=>`<a href="${s}" target="_blank">${s}</a>`).join("<br>");
+        html += "<br><br><b>📌 Source:</b><br>";
+        html += `<a href="${sources[0]}" target="_blank">${sources[0]}</a>`;
     }
 
     msg.innerHTML = html;
-
-    if (isError) msg.style.color = "red";
-
     chatMessages.appendChild(msg);
     chatMessages.scrollTop = chatMessages.scrollHeight;
+
+    /* 
+    // 🔊 Uncomment to enable bot voice
+    if (!isUser) {
+        speakText(text);
+    }
+    */
 }
 
 async function sendQuery(question) {
@@ -97,7 +113,6 @@ async function sendQuery(question) {
     });
 
     if (!res.ok) throw new Error("Server error");
-
     return res.json();
 }
 
@@ -113,12 +128,15 @@ async function handleSend() {
         addMessage(result.answer, false, result.sources);
 
     } catch (e) {
-        addMessage("⚠️ " + e.message, false, null, true);
+        addMessage("⚠️ " + e.message, false);
     }
 }
 
 sendButton.onclick = handleSend;
-userInput.onkeydown = (e) => { if (e.key === "Enter") handleSend(); };
+userInput.onkeydown = (e) => {
+    if (e.key === "Enter") handleSend();
+};
 
-addMessage("🐝 Hi! I'm ScriptBees Assistant. Ask me anything!", false);
+addMessage("🐝 Hi! I'm ScriptBees Assistant. How can I help you today?", false);
 
+  
